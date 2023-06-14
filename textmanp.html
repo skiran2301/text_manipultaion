@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Text Manipulation</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .input-group {
+      margin-bottom: 20px;
+    }
+
+    .input-group label {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .input-group input[type="text"] {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+    }
+
+    .button-container {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .button-container button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    .button-container button.copy-button {
+      background-color: #2196F3;
+    }
+
+    .output-container {
+      margin-top: 20px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      background-color: #f9f9f9;
+      position: relative;
+    }
+
+    .output-container button.copy-button {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      padding: 5px 10px;
+      font-size: 14px;
+      background-color: #2196F3;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    .output-container button.copied-button {
+      background-color: #4CAF50;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="input-group">
+      <label for="inputText">Enter a text:</label>
+      <input type="text" id="inputText" placeholder="Type here">
+    </div>
+
+    <div class="button-container">
+      <button onclick="removeQuotes()">Remove Quotes</button>
+      <button onclick="convertToBackslash()">Convert to Backslash</button>
+      <button onclick="makeUpperCase()">Make Uppercase</button>
+      <button onclick="makeLowerCase()">Make Lowercase</button>
+    </div>
+
+    <div class="output-container">
+      <label for="outputText">Result:</label>
+      <textarea id="outputText" readonly></textarea>
+      <button class="copy-button" onclick="copyText()">Copy</button>
+    </div>
+  </div>
+
+  <script>
+    function removeQuotes() {
+      var input = document.getElementById("inputText").value;
+      var output = input.replace(/^"|"$/g, "");
+      document.getElementById("outputText").value = output;
+      updateCopyButton();
+    }
+
+    function convertToBackslash() {
+      var input = document.getElementById("inputText").value;
+      var output = input.replace(/\//g, "\\");
+      document.getElementById("outputText").value = output;
+      updateCopyButton();
+    }
+
+    function makeUpperCase() {
+      var input = document.getElementById("inputText").value;
+      var output = input.toUpperCase();
+      document.getElementById("outputText").value = output;
+      updateCopyButton();
+    }
+
+    function makeLowerCase() {
+      var input = document
+      document.getElementById("inputText").value;
+      var output = input.toLowerCase();
+      document.getElementById("outputText").value = output;
+      updateCopyButton();
+    }
+
+    function copyText() {
+      var output = document.getElementById("outputText");
+      output.select();
+      output.setSelectionRange(0, 99999); // For mobile devices
+
+      document.execCommand("copy");
+      updateCopyButton(true);
+    }
+
+    function updateCopyButton(copied = false) {
+      var copyButton = document.querySelector(".output-container button.copy-button");
+      if (copied) {
+        copyButton.textContent = "Copied";
+        copyButton.classList.remove("copy-button");
+        copyButton.classList.add("copied-button");
+      } else {
+        copyButton.textContent = "Copy";
+        copyButton.classList.remove("copied-button");
+        copyButton.classList.add("copy-button");
+      }
+    }
+  </script>
+</body>
+</html>
